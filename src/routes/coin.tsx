@@ -47,7 +47,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin: 16px;
 `;
 
 const Title = styled.h1`
@@ -197,7 +197,7 @@ function Coin () {
             </Tab>
           </Tabs>
 
-          <Outlet/>
+          <Outlet context = {coinId}/>
         </>
       )}
     </Container>
