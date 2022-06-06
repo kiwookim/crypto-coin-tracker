@@ -1,8 +1,7 @@
-import ReactApexChart from 'react-apexcharts';
 import { useQuery } from 'react-query';
 import { useOutletContext } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
-import ApexChart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 interface ChartProps {
   coinId: string;
@@ -21,41 +20,50 @@ interface IDataTypes {
 function Chart () {
   const {coinId} = useOutletContext<ChartProps>();
   const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId));
+  
   return (
     <div>
       {isLoading ? (
         "Loading chart..."
       ) : (
-        <ApexChart
-          type="line"
-          series={[{data: [0,1,2,3,4], name:'ki'}]}
-          options={{
-      
-            theme: {
-              mode: "dark",
+        <ReactApexChart
+          series={[
+            {
+            data: data?.map((price) => {
+            return{
+              x: price.time_close,
+              y: [price.open.toFixed(2), price.high.toFixed(2), price.low.toFixed(2), price.close.toFixed(2)]
+            }
+            })
             },
-            chart: {
-              height: 300,
-              width: 500,
-              toolbar: {
-                show: false,
-              },
-              background: "transparent",
-            },
-            grid: { show: false },
-            stroke: {
-              curve: "smooth",
-              width: 4,
+            ] as any}
+          
+          type = 'candlestick'
+          options = {{
+            grid: {show: false},
+            xaxis: {
+              type: 'datetime',
+              labels: {show:false},
+              axisBorder: { show: false },
+              axisTicks: { show: false }
             },
             yaxis: {
+              tooltip: {
+                enabled: true,
+              },
               show: false,
             },
-            xaxis: {
-              axisBorder: { show: false },
-              axisTicks: { show: false },
-              labels: { show: false },
+            theme: {
+              mode: 'dark',
             },
+            chart: {
+              toolbar: {
+                show: false
+              },
+              background: 'rgba(0, 0, 0, 0.5)'
+            }          
           }}
+          
         />
       )}
     </div>
