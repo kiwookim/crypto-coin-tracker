@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ReactApexChart from "react-apexcharts";
 
@@ -18,8 +18,10 @@ interface IDataTypes {
 }
 
 function Chart () {
-  const {coinId} = useOutletContext<ChartProps>();
-  const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId));
+  // const {coinId} = useOutletContext<ChartProps>();
+  const {coinId} = useParams();
+  console.log(coinId);
+  const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId as string));
   
   return (
     <div>
@@ -40,7 +42,7 @@ function Chart () {
           
           type = 'candlestick'
           options = {{
-            grid: {show: false},
+            grid: {show: true},
             xaxis: {
               type: 'datetime',
               labels: {show:false},
@@ -51,7 +53,6 @@ function Chart () {
               tooltip: {
                 enabled: true,
               },
-              show: false,
             },
             theme: {
               mode: 'dark',

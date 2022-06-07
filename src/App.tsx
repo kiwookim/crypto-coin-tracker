@@ -48,7 +48,10 @@ table {
 	border-spacing: 0;
 }
 * {
-  border-sizing : border-box;
+  box-sizing : border-box;
+}
+* {
+	borders
 }
 a {
   text-decoration : none;

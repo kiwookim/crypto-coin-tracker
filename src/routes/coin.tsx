@@ -79,7 +79,7 @@ const Description = styled.p`
 `;
 
 
-interface RouterState {
+interface IRouterState {
   name: string;
 }
 
@@ -136,14 +136,14 @@ interface IPriceData {
       volume_24h: number;
       volume_24h_change_24h: number;
     };
-  };
+  }; 
   }
 
 
 function Coin () {
   const {coinId} = useParams<{coinId:string}>();
   const location = useLocation();
-  const name = location.state as RouterState;
+  const name = location.state as IRouterState;
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
 
