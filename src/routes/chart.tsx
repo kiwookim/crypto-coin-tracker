@@ -3,9 +3,10 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ReactApexChart from "react-apexcharts";
 
-interface ChartProps {
-  coinId: string;
-}
+// interface ChartProps {
+//   coinId: string;
+// }
+
 interface IDataTypes {
   time_open: string,
   time_close: string,
@@ -21,7 +22,9 @@ function Chart () {
   // const {coinId} = useOutletContext<ChartProps>();
   const {coinId} = useParams();
   console.log(coinId);
-  const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId as string));
+  const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId as string), {
+    refetchInterval: 5000
+  });
   
   return (
     <div>

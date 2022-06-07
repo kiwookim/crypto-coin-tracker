@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Router from './routes/router';
 
+
 const GlobalCss = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;700&display=swap');
 html, body, div, span, applet, object, iframe,
@@ -49,9 +50,6 @@ table {
 }
 * {
   box-sizing : border-box;
-}
-* {
-	borders
 }
 a {
   text-decoration : none;

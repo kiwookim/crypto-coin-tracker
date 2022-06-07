@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import { stringify } from 'querystring';
+import { Helmet } from 'react-helmet';
+
 
 const Tabs = styled.div`
   display: grid;
@@ -147,12 +149,19 @@ function Coin () {
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
 
-  const {isLoading : infoLoading, data: infoData} = useQuery(['info',coinId], ()=> fetchCoinInfo(coinId ? coinId : ""));
-  const {isLoading: tickerLoading,data: tickerData} = useQuery(['tickers',coinId], ()=> fetchCoinTickers(coinId ? coinId : ""));
+  const {isLoading : infoLoading, data: infoData} = useQuery(['info',coinId], ()=> fetchCoinInfo(coinId ? coinId : ""), {
+    refetchInterval: 5000
+  });
+  const {isLoading: tickerLoading,data: tickerData} = useQuery(['tickers',coinId], ()=> fetchCoinTickers(coinId ? coinId : ""),{
+    refetchInterval: 5000
+  });
   const loading = infoLoading || tickerLoading;
 
   return (
     <Container>
+      <Helmet>
+        <title>{name?.name ? name.name : loading ? "Loading..." : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>
           {name?.name ? name.name : loading ? "Loading..." : infoData?.name}
@@ -197,7 +206,7 @@ function Coin () {
             </Tab>
           </Tabs>
 
-          <Outlet context = {coinId}/>
+          <Outlet context = {{coinId}}/>
         </>
       )}
     </Container>

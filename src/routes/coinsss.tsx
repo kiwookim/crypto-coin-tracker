@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ReactDOM } from 'react';
 import { useQuery } from 'react-query';
 import { fetchCoins } from '../api';
+import { Helmet } from 'react-helmet';
 
 
 const Container = styled.div`
@@ -74,6 +75,9 @@ function Coinsss () {
 
   return (
     <Container>
+      <Helmet>
+        <title>Crypto Coin Tracker</title>
+      </Helmet>
       <Header>
         <Title>Crypto Coin Tracker</Title>
       </Header>
