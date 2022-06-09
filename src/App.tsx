@@ -1,6 +1,9 @@
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Router from './routes/router';
+import { darkTheme, lightTheme } from './theme';
+import { useRecoilValue } from 'recoil';
+import {isDarkAtom } from './atom';
 
 
 const GlobalCss = createGlobalStyle`
@@ -63,10 +66,14 @@ body {
 `;
 
 function App() {
+	const isDark= useRecoilValue(isDarkAtom);
   return (  
   <>
-    <Router />
-    <GlobalCss />
+		<ThemeProvider theme={isDark? darkTheme : lightTheme}>
+			<Router />
+			<GlobalCss />
+		</ThemeProvider>
+
   </>
   );
 }

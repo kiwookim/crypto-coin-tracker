@@ -5,6 +5,10 @@ import { ReactDOM } from 'react';
 import { useQuery } from 'react-query';
 import { fetchCoins } from '../api';
 import { Helmet } from 'react-helmet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atom';
 
 
 const Container = styled.div`
@@ -17,9 +21,10 @@ const Container = styled.div`
 const Header = styled.header`
   height: 10vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin: 8px;
 `;
 
 const Image = styled.img`
@@ -32,6 +37,7 @@ const Image = styled.img`
 const Title = styled.h1`
   color : ${props => props.theme.accentColor};
   font-size: 48px;
+  margin-bottom: 5px;
 `;
 
 
@@ -57,6 +63,16 @@ const Coin = styled.li`
   }
 `;
 
+const ThemeIcon = styled.span`
+  font-size: 20px;
+  margin-top: 4px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in;
+  }
+`;
+
 
 interface CoinInterface {
     id:string,
@@ -71,6 +87,8 @@ interface CoinInterface {
 
 function Coinsss () {
   const {isLoading, data} = useQuery<CoinInterface[]>('allCoins', fetchCoins);
+  const setisDark = useSetRecoilState(isDarkAtom);
+  const toggleBtn = ()=> setisDark(current => !current);
 
 
   return (
@@ -80,6 +98,9 @@ function Coinsss () {
       </Helmet>
       <Header>
         <Title>Crypto Coin Tracker</Title>
+        <ThemeIcon>
+            <FontAwesomeIcon icon={faCircleHalfStroke} onClick={toggleBtn}/>
+        </ThemeIcon>
       </Header>
       <CoinList>
         {data?.slice(0,100).map((coin)=>

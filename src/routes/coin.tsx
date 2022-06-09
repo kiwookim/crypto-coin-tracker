@@ -8,6 +8,9 @@ import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import { stringify } from 'querystring';
 import { Helmet } from 'react-helmet';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 
 const Tabs = styled.div`
@@ -22,7 +25,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props => props.theme.genericColor};
   padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
@@ -45,22 +48,31 @@ const Container = styled.div`
 
 
 const Header = styled.header`
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 16px;
+  height: 12vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 42px 0;
 `;
 
 const Title = styled.h1`
   color : ${props => props.theme.accentColor};
-  font-size: 48px;
+  font-size: 40px;
+  text-align: center;
+`;
+
+const HomeIcon = styled.span`
+  font-size: 34px;
+  color: ${props => props.theme.accentColor};
+  &:hover {
+    color: black;
+    transition: color 0.3s ease-in;
+  }
 `;
 
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${props => props.theme.genericColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -141,7 +153,6 @@ interface IPriceData {
   }; 
   }
 
-
 function Coin () {
   const {coinId} = useParams<{coinId:string}>();
   const location = useLocation();
@@ -157,12 +168,18 @@ function Coin () {
   });
   const loading = infoLoading || tickerLoading;
 
+
   return (
     <Container>
       <Helmet>
         <title>{name?.name ? name.name : loading ? "Loading..." : infoData?.name}</title>
       </Helmet>
       <Header>
+        <Link to='/'>
+          <HomeIcon>  
+            <FontAwesomeIcon icon={faHome}/> 
+          </HomeIcon>
+        </Link>
         <Title>
           {name?.name ? name.name : loading ? "Loading..." : infoData?.name}
         </Title>
