@@ -119,7 +119,7 @@ interface IInfoData {
   last_data_at:  string;
 }
 
-interface IPriceData {
+interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -150,8 +150,9 @@ interface IPriceData {
       volume_24h: number;
       volume_24h_change_24h: number;
     };
-  }; 
-  }
+  };
+}
+
 
 function Coin () {
   const {coinId} = useParams<{coinId:string}>();

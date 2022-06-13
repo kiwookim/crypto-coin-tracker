@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { useOutletContext, useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ReactApexChart from "react-apexcharts";
 import { isDarkAtom } from '../atom';
@@ -27,6 +27,7 @@ function Chart () {
   const {isLoading, data} = useQuery<IDataTypes[]>(['ohlc', coinId], () => fetchCoinHistory(coinId as string), {
     refetchInterval: 5000
   });
+  console.log(data);
   
   return (
     <div>
@@ -37,10 +38,10 @@ function Chart () {
           series={[
             {
             data: data?.map((price) => {
-            return{
+              return{
               x: price.time_close,
               y: [price.open.toFixed(2), price.high.toFixed(2), price.low.toFixed(2), price.close.toFixed(2)]
-            }
+              }
             })
             },
             ] as any}
