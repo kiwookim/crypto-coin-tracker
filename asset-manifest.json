@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/crypto-coin-tracker/static/js/main.605e3acd.js",
+    "main.js": "/crypto-coin-tracker/static/js/main.b1986609.js",
     "index.html": "/crypto-coin-tracker/index.html",
-    "main.605e3acd.js.map": "/crypto-coin-tracker/static/js/main.605e3acd.js.map"
+    "main.b1986609.js.map": "/crypto-coin-tracker/static/js/main.b1986609.js.map"
   },
   "entrypoints": [
-    "static/js/main.605e3acd.js"
+    "static/js/main.b1986609.js"
   ]
 }
