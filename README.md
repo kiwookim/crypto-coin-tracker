@@ -1,6 +1,6 @@
 # Crypto Coin Tracker
 
-This website shows data using React Query to fetch crypto price API (coinpaprika- free plan version)
+This project shows data using React Query to fetch crypto price API (coinpaprika- free plan version)
 https://cnk7pb.csb.app/
 ## Using :
 
